@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const credito = require('./components/credito/network');
+const error = require('./../network/error');
 
 //inicializacion de app
 const http = require('http');
@@ -14,13 +16,19 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 //ROUTER
 //app.use('/');
+/*
 app.get('*', (req, res) => res.status(200).send({
     message: 'app funcionando'
 }));
+*/
+app.use('/api/credito',credito);
 
+
+app.use(error);
 
 app.listen(3000, ()=> {
     console.log('Api escuchando en el puerto 3000');
 });
 
 module.exports = app;
+

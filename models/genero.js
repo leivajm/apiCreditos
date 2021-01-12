@@ -13,13 +13,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  genereo.init({
-    generoId: DataTypes.INTEGER,
+  genero.init({
+    generoId: { type: DataTypes.INTEGER, field: 'generoId'},
     descripcion: DataTypes.STRING,
     estadoId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'genero',
+    timestamps: false,
+    freezeTableName: true,
   });
+  genero.removeAttribute("id");
   return genero;
 };
