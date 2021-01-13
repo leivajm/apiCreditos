@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('usuario_rol', {
-      usuarioRolId: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'usuario',
-          key: 'usuarioId'
+          key: 'id'
         }
       },
       rolId: {
@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'rol',
-          key: 'rolId'
+          key: 'id'
         }
       },
       estadoId: {
@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'estado',
-          key: 'estadoId'
+          key: 'id'
         }
       },
       fechaHora: {
@@ -41,7 +41,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'usuario',
-          key: 'usuarioId'
+          key: 'id'
         }
       },
       fechaHoraUpdate: {
@@ -53,7 +53,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'usuario',
-          key: 'usuarioId'
+          key: 'id'
         }
       }
     });

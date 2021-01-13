@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   documento.init({
-    documentoId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     personaId: DataTypes.INTEGER,
     tipoDocumentoId: DataTypes.INTEGER,
     estadoId: DataTypes.INTEGER,
@@ -25,6 +25,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'documento',
+    timestamps: false,
+    freezeTableName: true
   });
+  documento.associate = function(models) {
+    documento.belongsTo(models.persona, {foreignKey: 'personaId', as: 'persona' });
+    documento.belongsTo(models.tipo_documento, {foreignKey: 'tipoDocumentoId', as: 'tipoDocumento' });
+    documento.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    documento.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    documento.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return documento;
 };

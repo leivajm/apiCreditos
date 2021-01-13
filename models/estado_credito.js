@@ -14,12 +14,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   estado_credito.init({
-    estadoCreditoId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     descripcion: DataTypes.STRING,
     estadoId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'estado_credito',
+    timestamps: false,
+    freezeTableName: true
   });
+  estado_credito.associate = function(models) {
+    estado_credito.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' })
+  }
   return estado_credito;
 };

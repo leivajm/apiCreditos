@@ -14,16 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   credito.init({
-    creditoId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     empresaId: DataTypes.INTEGER,
     rutaId: DataTypes.INTEGER,
     codigoTarjeta: DataTypes.STRING,
     clienteId: DataTypes.INTEGER,
     fechaCredito: DataTypes.DATE,
-    montoCredito: DataTypes.FLOAT,
-    totalAPagar: DataTypes.FLOAT,
+    montoCredito: DataTypes.DECIMAL,
+    totalAPagar: DataTypes.DECIMAL,
     periodoCobroId: DataTypes.INTEGER,
-    cuotaProgramada: DataTypes.FLOAT,
+    cuotaProgramada: DataTypes.DECIMAL,
     estadoCreditoId: DataTypes.INTEGER,
     observaciones: DataTypes.STRING,
     estadoId: DataTypes.INTEGER,
@@ -34,6 +34,18 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'credito',
+    timestamps: false,
+    freezeTableName: true,
   });
+  credito.associate = function(models) {
+    credito.belongsTo(models.empresa, {foreignKey: 'empresaId', as: 'empresa' });
+    credito.belongsTo(models.ruta, {foreignKey: 'rutaId', as: 'ruta' });
+    credito.belongsTo(models.persona, {foreignKey: 'clienteId', as: 'persona' });
+    credito.belongsTo(models.periodo_cobro, {foreignKey: 'periodoCobroId', as: 'periodoCobro' });
+    credito.belongsTo(models.estado_credito, {foreignKey: 'estadoCreditoId', as: 'estadoCredito' });
+    credito.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    credito.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    credito.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return credito;
 };

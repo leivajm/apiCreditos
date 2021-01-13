@@ -14,12 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   departamento.init({
-    departamentoId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     codigo: DataTypes.STRING,
     descripcion: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'departamento',
+    timestamps: false,
+    freezeTableName: true,
   });
   return departamento;
 };

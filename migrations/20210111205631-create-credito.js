@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('credito', {
-      creditoId: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'empresa',
-          key: 'empresaId'
+          key: 'id'
         }
       },
       rutaId: {
@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'ruta',
-          key: 'rutaId'
+          key: 'id'
         }
       },
       codigoTarjeta: {
@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'persona',
-          key: 'personaId'
+          key: 'id'
         }
       },
       fechaCredito: {
@@ -42,30 +42,30 @@ module.exports = {
       },
       montoCredito: {
         allowNull: false,
-        type: Sequelize.FLOAT(10,2)
+        type: Sequelize.DECIMAL(10,2)
       },
       totalAPagar: {
         allowNull: false,
-        type: Sequelize.FLOAT(10,2)
+        type: Sequelize.DECIMAL(10,2)
       },
       periodoCobroId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'periodo_cobro',
-          key: 'periodoCobroId'
+          key: 'id'
         }
       },
       cuotaProgramada: {
         allowNull: false,
-        type: Sequelize.FLOAT(10,2)
+        type: Sequelize.DECIMAL(10,2)
       },
       estadoCreditoId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'estado_credito',
-          key: 'estadoCreditoId'
+          key: 'id'
         }
       },
       observaciones: {
@@ -77,7 +77,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'estado',
-          key: 'estadoId'
+          key: 'id'
         }
       },
       fechaHora: {
@@ -89,7 +89,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'usuario',
-          key: 'usuarioId'
+          key: 'id'
         }
       },
       fechaHoraUpdate: {
@@ -101,7 +101,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'usuario',
-          key: 'usuarioId'
+          key: 'id'
         }
       }
     });

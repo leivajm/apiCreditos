@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   persona.init({
-    personaId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     primerNombre: DataTypes.STRING,
     segundoNombre: DataTypes.STRING,
     otrosNombres: DataTypes.STRING,
@@ -30,6 +30,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'persona',
+    timestamps: false,
+    freezeTableName: true
   });
+  persona.associate = function(models) {
+    persona.belongsTo(models.genero, {foreignKey: 'generoId', as: 'genero' });
+    persona.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    persona.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    persona.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return persona;
 };

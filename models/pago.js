@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   pago.init({
-    pagoId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     creditoId: DataTypes.INTEGER,
-    monto: DataTypes.FLOAT,
-    mora: DataTypes.FLOAT,
-    saldo: DataTypes.FLOAT,
+    monto: DataTypes.DECIMAL,
+    mora: DataTypes.DECIMAL,
+    saldo: DataTypes.DECIMAL,
     observaciones: DataTypes.STRING,
     estadoId: DataTypes.INTEGER,
     fechaHora: DataTypes.DATE,
@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'pago',
+    timestamps: false,
+    freezeTableName: true
   });
+  pago.associate = function(models) {
+    pago.belongsTo(models.credito, {foreignKey: 'creditoId', as: 'credito' });
+    pago.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    pago.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    pago.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return pago;
 };

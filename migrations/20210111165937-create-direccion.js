@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('direccion', {
-      direccionId: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'persona',
-          key: 'personaId'
+          key: 'id'
         }
       },
       tipoDireccionId: {
@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'tipo_direccion',
-          key: 'tipoDireccionId'
+          key: 'id'
         }
       },
       municipioId: {
@@ -29,19 +29,31 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'municipio',
-          key: 'municipioId'
+          key: 'id'
         }
       },
       direccion: {
         allowNull: false,
         type: Sequelize.STRING(300)
       },
+      gpsLatitude: {
+        allowNull: true,
+        type: Sequelize.STRING(100)
+      },
+      gpsLongitud: {
+        allowNull: true,
+        type: Sequelize.STRING(100)
+      },
+      foto: {
+        allowNull: true,
+        type: Sequelize.BLOB('long')
+      },
       estadoId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'estado',
-          key: 'estadoId'
+          key: 'id'
         }
       },
       fechaHora: {
@@ -53,7 +65,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'usuario',
-          key: 'usuarioId'
+          key: 'id'
         }
       },
       fechaHoraUpdate: {
@@ -65,7 +77,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'usuario',
-          key: 'usuarioId'
+          key: 'id'
         }
       }
     });

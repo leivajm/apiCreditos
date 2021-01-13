@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   usuario_rol.init({
-    usuarioRolId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     usuarioId: DataTypes.INTEGER,
     rolId: DataTypes.INTEGER,
     estadoId: DataTypes.INTEGER,
@@ -25,6 +25,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'usuario_rol',
+    timestamps: false,
+    freezeTableName: true
   });
+  usuario_rol.associate = function(models) {
+    usuario_rol.belongsTo(models.usuario, {foreignKey: 'usuarioId', as: 'usuario' });
+    usuario_rol.belongsTo(models.rol, {foreignKey: 'rolId', as: 'rol' });
+    usuario_rol.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    usuario_rol.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    usuario_rol.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return usuario_rol;
 };

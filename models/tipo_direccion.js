@@ -14,12 +14,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   tipo_direccion.init({
-    tipoDireccionId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     descripcion: DataTypes.STRING,
     estadoId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'tipo_direccion',
+    timestamps: false,
+    freezeTableName: true
   });
+  tipo_direccion.associate = function(models) {
+    tipo_direccion.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' })
+  }
   return tipo_direccion;
 };

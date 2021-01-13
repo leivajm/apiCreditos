@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('pago', {
-      pagoId: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -13,20 +13,20 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'credito',
-          key: 'creditoId'
+          key: 'id'
         },
       },
       monto: {
         allowNull: false,
-        type: Sequelize.FLOAT(10,2)
+        type: Sequelize.DECIMAL(10,2)
       },
       mora: {
         allowNull: true,
-        type: Sequelize.FLOAT(10,2)
+        type: Sequelize.DECIMAL(10,2)
       },
       saldo: {
         allowNull: false,
-        type: Sequelize.FLOAT(10,2)
+        type: Sequelize.DECIMAL(10,2)
       },
       observaciones: {
         allowNull: true,
@@ -37,7 +37,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'estado',
-          key: 'estadoId'
+          key: 'id'
         }
       },
       fechaHora: {
@@ -49,7 +49,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'usuario',
-          key: 'usuarioId'
+          key: 'id'
         }
       },
       fechaHoraUpdate: {
@@ -61,7 +61,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'usuario',
-          key: 'usuarioId'
+          key: 'id'
         }
       }
     });

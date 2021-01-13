@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   rol_permiso.init({
-    rolPermisoId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     rolId: DataTypes.INTEGER,
     permisoId: DataTypes.INTEGER,
     estadoId: DataTypes.INTEGER,
@@ -25,6 +25,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'rol_permiso',
+    timestamps: false,
+    freezeTableName: true
   });
+  rol_permiso.associate = function(models) {
+    rol_permiso.belongsTo(models.rol, {foreignKey: 'rolId', as: 'rol' });
+    rol_permiso.belongsTo(models.permiso, {foreignKey: 'permisoId', as: 'permiso' });
+    rol_permiso.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    rol_permiso.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    rol_permiso.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return rol_permiso;
 };

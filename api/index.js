@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const credito = require('./components/credito/network');
 const error = require('./../network/error');
+const catalogo = require('./components/catalogo/network');
+const auth = require('./components/auth/network');
+
 
 //inicializacion de app
 const http = require('http');
@@ -21,7 +24,9 @@ app.get('*', (req, res) => res.status(200).send({
     message: 'app funcionando'
 }));
 */
+app.use('/api/auth', auth);
 app.use('/api/credito',credito);
+app.use('/api/catalogo',catalogo);
 
 
 app.use(error);

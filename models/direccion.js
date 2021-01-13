@@ -14,11 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   direccion.init({
-    direccionId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     personaId: DataTypes.INTEGER,
     tipoDireccionId: DataTypes.INTEGER,
     municipioId: DataTypes.INTEGER,
     direccion: DataTypes.STRING,
+    gpsLatitude: DataTypes.STRING,
+    gpsLongitud: DataTypes.STRING,
+    foto: DataTypes.BLOB('long'),
     estadoId: DataTypes.INTEGER,
     fechaHora: DataTypes.DATE,
     usuarioIdCreacion: DataTypes.INTEGER,
@@ -27,6 +30,16 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'direccion',
+    timestamps: false,
+    freezeTableName: true,
   });
+  direccion.associate = function(models) {
+    direccion.belongsTo(models.persona, {foreignKey: 'personaId', as: 'persona' });
+    direccion.belongsTo(models.tipo_direccion, {foreignKey: 'tipoDireccionId', as: 'tipoDireccion' });
+    direccion.belongsTo(models.municipio, {foreignKey: 'municipioId', as: 'municipio' });
+    direccion.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    direccion.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    direccion.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return direccion;
 };

@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   plan_pago.init({
-    planPagoId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     creditoId: DataTypes.INTEGER,
     numeroCuota: DataTypes.INTEGER,
     fechaCuota: DataTypes.DATE,
-    monto: DataTypes.FLOAT,
-    saldo: DataTypes.FLOAT,
+    monto: DataTypes.DECIMAL,
+    saldo: DataTypes.DECIMAL,
     pagoId: DataTypes.INTEGER,
     observaciones: DataTypes.STRING,
     estadoId: DataTypes.INTEGER,
@@ -30,6 +30,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'plan_pago',
+    timestamps: false,
+    freezeTableName: true
   });
+  plan_pago.associate = function(models) {
+    plan_pago.belongsTo(models.credito, {foreignKey: 'creditoId', as: 'credito' });
+    plan_pago.belongsTo(models.pago, {foreignKey: 'pagoId', as: 'pago' });
+    plan_pago.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    plan_pago.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    plan_pago.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return plan_pago;
 };

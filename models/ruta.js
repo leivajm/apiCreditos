@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   ruta.init({
-    rutaId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     empresaId: DataTypes.INTEGER,
     codigoRuta: DataTypes.STRING,
     descripcion: DataTypes.STRING,
@@ -26,6 +26,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'ruta',
+    timestamps: false,
+    freezeTableName: true
   });
+  ruta.associate = function(models) {
+    ruta.belongsTo(models.empresa, {foreignKey: 'empresaId', as: 'empresa' });
+    ruta.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    ruta.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    ruta.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return ruta;
 };

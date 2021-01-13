@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   empresa.init({
-    empresaId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     descripcion: DataTypes.STRING,
     estadoId: DataTypes.INTEGER,
     fechaHora: DataTypes.DATE,
@@ -24,6 +24,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'empresa',
+    timestamps: false,
+    freezeTableName: true
   });
+  empresa.associate = function(models) {
+    empresa.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' });
+    empresa.belongsTo(models.usuario, {foreignKey: 'usuarioIdCreacion', as: 'usuarioCreacion' });
+    empresa.belongsTo(models.usuario, {foreignKey: 'usuarioIdUpdate', as: 'usuarioUpdate' });
+  }
   return empresa;
 };

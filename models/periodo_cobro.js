@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   periodo_cobro.init({
-    periodoCobroId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     descripcion: DataTypes.STRING,
     numeroCuotas: DataTypes.INTEGER,
     diasPago: DataTypes.INTEGER,
@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'periodo_cobro',
+    timestamps: false,
+    freezeTableName: true
   });
+  periodo_cobro.associate = function(models) {
+    periodo_cobro.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' })
+  }
   return periodo_cobro;
 };

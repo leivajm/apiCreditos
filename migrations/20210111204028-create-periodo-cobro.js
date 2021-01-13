@@ -2,7 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('periodo_cobro', {
-      periodoCobroId: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'estado',
-          key: 'estadoId'
+          key: 'id'
         }
       }
     });

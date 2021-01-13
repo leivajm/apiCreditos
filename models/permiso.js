@@ -14,12 +14,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   permiso.init({
-    permisoId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     descripcion: DataTypes.STRING,
     estadoId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'permiso',
+    timestamps: false,
+    freezeTableName: true
   });
+  permiso.associate = function(models) {
+    permiso.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' })
+  }
   return permiso;
 };

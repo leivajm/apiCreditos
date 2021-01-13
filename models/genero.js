@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   genero.init({
-    generoId: { type: DataTypes.INTEGER, field: 'generoId'},
+    //generoId: { type: DataTypes.INTEGER, field: 'generoId'},
     descripcion: DataTypes.STRING,
     estadoId: DataTypes.INTEGER
   }, {
@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
     freezeTableName: true,
   });
-  genero.removeAttribute("id");
+  //genero.removeAttribute("id");
+  genero.associate = function(models) {
+    genero.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' })
+  }
+  //genero.associate = function
   return genero;
 };

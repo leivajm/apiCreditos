@@ -14,12 +14,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   tipo_documento.init({
-    tipoDocumentoId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     descripcion: DataTypes.STRING,
     estadoId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'tipo_documento',
+    timestamps: false,
+    freezeTableName: true
   });
+  tipo_documento.associate = function(models) {
+    tipo_documento.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' })
+  }
   return tipo_documento;
 };

@@ -14,13 +14,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   municipio.init({
-    municipioId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     departamentoId: DataTypes.INTEGER,
     codigo: DataTypes.STRING,
     descripcion: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'municipio',
+    timestamps: false,
+    freezeTableName: true
   });
+  municipio.associate = function(models) {
+    municipio.belongsTo(models.departamento, {foreignKey: 'departamentoId', as: 'departamento' })
+  }
   return municipio;
 };

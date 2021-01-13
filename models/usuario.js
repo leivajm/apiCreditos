@@ -14,17 +14,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   usuario.init({
-    usuarioId: DataTypes.INTEGER,
+    //id: DataTypes.INTEGER,
     personaId: DataTypes.INTEGER,
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     fechaHora: DataTypes.DATE,
+    estadoId: DataTypes.INTEGER,
     usuarioIdCreacion: DataTypes.INTEGER,
     fechaHoraUpdate: DataTypes.DATE,
     usuarioIdUpdate: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'usuario',
+    timestamps: false,
+    freezeTableName: true
   });
+  usuario.associate = function(models) {
+    usuario.belongsTo(models.estado, {foreignKey: 'estadoId', as: 'estado' })
+  }
   return usuario;
 };

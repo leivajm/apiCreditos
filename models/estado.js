@@ -14,11 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   estado.init({
-    estadoId: DataTypes.INTEGER,
+    //estadoId: DataTypes.INTEGER,
     descripcion: DataTypes.STRING(20)
   }, {
     sequelize,
     modelName: 'estado',
+    timestamps: false,
+    freezeTableName: true,
   });
+  //estado.removeAttribute("id");
   return estado;
 };
