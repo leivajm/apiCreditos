@@ -20,8 +20,8 @@ const login = async (req)=>{
         attributes: ['username','password']
     });
 
-        return auth.sign(data);
-        return bcrypt.compare(password, data.password)
+        //return auth.sign(data);
+        return bcrypt.compare(req.body.password, data.password)
             .then(sonIguales => {
                 if(sonIguales === true) {
                     //Generar token
